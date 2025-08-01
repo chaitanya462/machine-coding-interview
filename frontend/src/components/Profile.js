@@ -46,28 +46,71 @@ export default function Profile() {
   }, [navigate]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="container fade-in">
+        <div className="card">
+          <div className="loading">
+            <h2>Loading Profile...</h2>
+            <p>Please wait while we fetch your information.</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <div>
-        <p>Error: {error}</p>
-        <button onClick={() => navigate('/login')}>Go to Login</button>
+      <div className="container fade-in">
+        <div className="card">
+          <div className="error-container">
+            <h2>Error</h2>
+            <p>{error}</p>
+            <div className="btn-group">
+              <button onClick={() => navigate('/login')} className="btn btn-primary">
+                Go to Login
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   return user ? (
-    <div>
-      <h2>Welcome, {user.username || user.name || 'User'}</h2>
-      <p>Email: {user.email || 'Not provided'}</p>
-      <button onClick={logout}>Logout</button>
+    <div className="container fade-in">
+      <div className="card">
+        <div className="profile-header">
+          <h2>Welcome, {user.username || user.name || 'User'}!</h2>
+          <p>Here's your profile information</p>
+        </div>
+        
+        <div className="profile-info">
+          <p><strong>Username:</strong> {user.username || user.name || 'Not provided'}</p>
+          {/* <p><strong>Email:</strong> {user.email || 'Not provided'}</p> */}
+          {user.id && <p><strong>User ID:</strong> {user.id}</p>}
+          {user.createdAt && <p><strong>Member since:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>}
+        </div>
+        
+        <div className="btn-group">
+          <button onClick={logout} className="btn btn-danger">
+            Sign Out
+          </button>
+        </div>
+      </div>
     </div>
   ) : (
-    <div>
-      <p>No user data available</p>
-      <button onClick={() => navigate('/login')}>Go to Login</button>
+    <div className="container fade-in">
+      <div className="card">
+        <div className="error-container">
+          <h2>No Profile Data</h2>
+          <p>No user data available</p>
+          <div className="btn-group">
+            <button onClick={() => navigate('/login')} className="btn btn-primary">
+              Go to Login
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

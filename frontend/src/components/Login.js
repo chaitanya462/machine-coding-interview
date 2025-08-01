@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,33 +13,76 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setMessage('');
       await axios.post('/api/users/login', form);
-      navigate('/profile');
+      setMessageType('success');
+      setMessage('Login successful! Redirecting...');
+      setTimeout(() => navigate('/profile'), 1000);
     } catch (err) {
-      setMessage('Login failed');
+      setMessageType('error');
+      setMessage('Login failed. Please check your credentials.');
     }
   };
 
   const handleLogout = async () => {
     try {
+      setMessage('');
       await axios.get('/api/users/logout');
+      setMessageType('success');
       setMessage('Logged out successfully');
       setForm({ username: '', password: '' });
     } catch (err) {
+      setMessageType('error');
       setMessage('Logout failed');
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="username" placeholder="Username" onChange={handleChange} />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} />
-        <button type="submit">Login</button>
-      </form>
-      <button onClick={handleLogout} style={{ marginTop: '10px' }}>Logout</button>
-      <p>{message}</p>
+    <div className="container fade-in">
+      <div className="card">
+        <h2>Welcome Back</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              className="form-control"
+              placeholder="Enter your username"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="form-control"
+              placeholder="Enter your password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="btn-group">
+            <button type="submit" className="btn btn-primary">
+              Sign In
+            </button>
+            <button type="button" onClick={handleLogout} className="btn btn-secondary">
+              Logout
+            </button>
+          </div>
+        </form>
+        {message && (
+          <div className={`message ${messageType}`}>
+            {message}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
