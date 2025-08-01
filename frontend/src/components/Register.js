@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from '../axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Register() {
   const [form, setForm] = useState({ username: '', password: '', confirmPassword: '' });
@@ -36,6 +36,11 @@ export default function Register() {
 
   return (
     <div className="container fade-in">
+      <div className="page-nav">
+        <Link to="/register" className="nav-link active">Register</Link>
+        <Link to="/login" className="nav-link">Login</Link>
+        <Link to="/profile" className="nav-link">Profile</Link>
+      </div>
       <div className="card">
         <h2>Create Account</h2>
         <form onSubmit={handleSubmit}>

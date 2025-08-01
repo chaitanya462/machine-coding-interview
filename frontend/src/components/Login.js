@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from '../axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -39,6 +39,11 @@ export default function Login() {
 
   return (
     <div className="container fade-in">
+      <div className="page-nav">
+        <Link to="/register" className="nav-link">Register</Link>
+        <Link to="/login" className="nav-link active">Login</Link>
+        <Link to="/profile" className="nav-link">Profile</Link>
+      </div>
       <div className="card">
         <h2>Welcome Back</h2>
         <form onSubmit={handleSubmit}>

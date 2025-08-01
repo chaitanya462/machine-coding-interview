@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
@@ -7,13 +7,6 @@ export default function App() {
   return (
     <Router>
       <div className="app">
-        <nav>
-          <div className="nav-container">
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/profile">Profile</Link>
-          </div>
-        </nav>
         <main>
           <Routes>
             <Route path="/" element={<Navigate to="/login" replace />} />

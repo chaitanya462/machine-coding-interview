@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from '../axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -48,6 +48,9 @@ export default function Profile() {
   if (loading) {
     return (
       <div className="container fade-in">
+        <div className="page-nav">
+          <span className="nav-link active">Profile</span>
+        </div>
         <div className="card">
           <div className="loading">
             <h2>Loading Profile...</h2>
@@ -61,6 +64,9 @@ export default function Profile() {
   if (error) {
     return (
       <div className="container fade-in">
+        <div className="page-nav">
+          <span className="nav-link active">Profile</span>
+        </div>
         <div className="card">
           <div className="error-container">
             <h2>Error</h2>
@@ -78,6 +84,9 @@ export default function Profile() {
 
   return user ? (
     <div className="container fade-in">
+      <div className="page-nav">
+        <span className="nav-link active">Profile</span>
+      </div>
       <div className="card">
         <div className="profile-header">
           <h2>Welcome, {user.username || user.name || 'User'}!</h2>
@@ -100,6 +109,9 @@ export default function Profile() {
     </div>
   ) : (
     <div className="container fade-in">
+      <div className="page-nav">
+        <span className="nav-link active">Profile</span>
+      </div>
       <div className="card">
         <div className="error-container">
           <h2>No Profile Data</h2>
