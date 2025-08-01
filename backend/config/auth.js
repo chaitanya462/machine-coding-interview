@@ -9,25 +9,32 @@ module.exports = (passport) => {
         try {
             const user = await User.findOne({ username })
             if (!user) {
-                return done(null, false, { message: "User not found" })
+                throw new Error("User not found")
             }
             const isMatch = await user.comparePassword(password)
             if (!isMatch) {
-                return done(null, false, { message: "Invalid password" })
+                throw new Error("Invalid password")
             }
             return done(null, user)
         } catch (error) {
-            return done(error)
+            return done(null, false, { message: error.message })
         }
     }))
 
     passport.serializeUser((user, done) => {
-        done(null, user.id)
+        try {
+            done(null, user.id)
+        } catch (error) {
+            done(error)
+        }
     })
 
     passport.deserializeUser(async (id, done) => {
         try {
             const user = await User.findById(id)
+            if (!user) {
+                throw new Error("User not found during deserialization")
+            }
             done(null, user)
         } catch (error) {
             done(error)
