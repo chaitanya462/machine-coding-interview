@@ -19,8 +19,12 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 })
 
 router.get("/logout", (req, res) => {
-    req.logout()
-    res.status(200).json({ message: "Logged out successfully" })
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).json({ message: "Error logging out" })
+        }
+        res.status(200).json({ message: "Logged out successfully" })
+    })
 })
 
 router.get("/profile", (req, res) => {
