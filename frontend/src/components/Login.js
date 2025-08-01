@@ -42,7 +42,6 @@ export default function Login() {
       <div className="page-nav">
         <Link to="/register" className="nav-link">Register</Link>
         <Link to="/login" className="nav-link active">Login</Link>
-        <Link to="/profile" className="nav-link">Profile</Link>
       </div>
       <div className="card">
         <h2>Welcome Back</h2>

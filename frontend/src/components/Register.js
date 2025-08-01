@@ -39,7 +39,6 @@ export default function Register() {
       <div className="page-nav">
         <Link to="/register" className="nav-link active">Register</Link>
         <Link to="/login" className="nav-link">Login</Link>
-        <Link to="/profile" className="nav-link">Profile</Link>
       </div>
       <div className="card">
         <h2>Create Account</h2>
